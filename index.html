@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevEnv | Command Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Subtle CRT Scanline Overlay -->
+    <div class="scanlines"></div>
+
+    <div class="terminal-container">
+        <!-- Top Status Bar -->
+        <header class="sys-header">
+            <div class="sys-status">
+                <div class="pulse-dot"></div>
+                <span id="network-status">NETWORK.ONLINE</span>
+            </div>
+            <div id="date-display" class="sys-date">YYYY-MM-DD</div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard">
+            <div class="clock-module">
+                <h1 id="clock" class="cyber-time">00:00:00</h1>
+                <p id="greeting" class="typewriter-text">Initializing workspace...</p>
+            </div>
+
+            <!-- Command Line Interface Search -->
+            <div class="cmd-module">
+                <form id="cmd-form">
+                    <span class="prompt">root@developer:~$</span>
+                    <input type="text" id="cmd-input" placeholder="Type query or use /gh (GitHub), /so (StackOverflow)..." autocomplete="off" autofocus>
+                </form>
+            </div>
+
+            <!-- WebDev Nodes -->
+            <div class="nodes-grid">
+                <a href="http://localhost:3000" class="node-link">
+                    <span class="node-icon">⚡</span>
+                    <span class="node-text">Localhost</span>
+                </a>
+                <a href="https://github.com" class="node-link">
+                    <span class="node-icon">🐙</span>
+                    <span class="node-text">GitHub</span>
+                </a>
+                <a href="https://stackoverflow.com" class="node-link">
+                    <span class="node-icon">🥞</span>
+                    <span class="node-text">StackOverflow</span>
+                </a>
+                <a href="https://stardance.hackclub.com" class="node-link">
+                    <span class="node-icon">🚀</span>
+                    <span class="node-text">Stardance</span>
+                </a>
+            </div>
+
+            <!-- Dynamic Injector -->
+            <div class="dev-tip">
+                <span class="tip-label">SYS.LOG ></span>
+                <span id="tip-text">Loading protocol...</span>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
