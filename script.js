@@ -1,77 +1,85 @@
-// 1. Live Developer Clock & Date
-function updateSystemTime() {
-    const now = new Date();
+function runClock() {
+    let dateObj = new Date();
     
-    // Time Format
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    let hrs = String(dateObj.getHours()).padStart(2, '0');
+    let mins = String(dateObj.getMinutes()).padStart(2, '0');
+    let secs = String(dateObj.getSeconds()).padStart(2, '0');
     
-    // Date Format (YYYY-MM-DD)
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    document.getElementById('date-display').textContent = `${year}-${month}-${day}`;
-
-    // Dynamic Context Greeting
-    const greetingElement = document.getElementById('greeting');
-    if (now.getHours() < 12) greetingElement.textContent = "Good Morning, Full-Stack Engineer.";
-    else if (now.getHours() < 18) greetingElement.textContent = "Good Afternoon. Compiling workspace...";
-    else greetingElement.textContent = "Late night coding session detected. Stay caffeinated.";
-}
-setInterval(updateSystemTime, 1000);
-updateSystemTime();
-
-// 2. Command Line Interface (CLI) Search Router
-document.getElementById('cmd-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const input = document.getElementById('cmd-input').value.trim();
+    document.getElementById('clock').textContent = `${hrs}:${mins}:${secs}`;
     
-    if (!input) return;
-
-    // Routing Logic based on prefixes
-    if (input.startsWith('/gh ')) {
-        // Search GitHub
-        const query = input.replace('/gh ', '');
-        window.location.href = `https://github.com/search?q=${encodeURIComponent(query)}`;
-    } else if (input.startsWith('/so ')) {
-        // Search StackOverflow
-        const query = input.replace('/so ', '');
-        window.location.href = `https://stackoverflow.com/search?q=${encodeURIComponent(query)}`;
-    } else if (input.startsWith('/yt ')) {
-        // Search YouTube
-        const query = input.replace('/yt ', '');
-        window.location.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+    let y = dateObj.getFullYear();
+    let m = String(dateObj.getMonth() + 1).padStart(2, '0');
+    let d = String(dateObj.getDate()).padStart(2, '0');
+    document.getElementById('date-text').textContent = `${y}-${m}-${d}`;
+    
+    let greetText = document.getElementById('greeting');
+    let currentHour = dateObj.getHours();
+    
+    if (currentHour < 12) {
+        greetText.textContent = "morning, time to build.";
+    } else if (currentHour < 18) {
+        greetText.textContent = "afternoon session active.";
     } else {
-        // Default Google Search
-        window.location.href = `https://www.google.com/search?q=${encodeURIComponent(input)}`;
+        greetText.textContent = "late night coding, grab coffee.";
+    }
+}
+
+setInterval(runClock, 1000);
+runClock(); 
+
+const searchForm = document.getElementById('cmd-form');
+const searchBox = document.getElementById('cmd-input');
+
+searchForm.addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    let query = searchBox.value.trim();
+    
+    if (query === "") return; 
+    
+    if (query.startsWith('/gh ')) {
+        let term = query.replace('/gh ', '');
+        window.location.href = `https://github.com/search?q=${encodeURIComponent(term)}`;
+    } else if (query.startsWith('/so ')) {
+        let term = query.replace('/so ', '');
+        window.location.href = `https://stackoverflow.com/search?q=${encodeURIComponent(term)}`;
+    } else if (query.startsWith('/yt ')) {
+        let term = query.replace('/yt ', '');
+        window.location.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(term)}`;
+    } else {
+        window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
     }
 });
 
-// 3. Dynamic Dev Tips Array
-const devTips = [
-    "Always read the documentation before pasting from StackOverflow.",
-    "Commit early, commit often. Write meaningful commit messages.",
-    "console.log() is good, but learning the debugger is a superpower.",
-    "Don't reinvent the wheel unless you are learning how wheels work.",
-    "Code is read more often than it is written. Keep it clean.",
-    "Hardware eventually fails. Software eventually works."
+const randomQuotes = [
+    "read the docs before asking on discord.",
+    "hardware eventually breaks. software eventually works.",
+    "console.log is cool but debugger is better.",
+    "commit your code. seriously, do it now.",
+    "if it works, don't touch it."
 ];
 
-// Inject a random tip on load
-const randomTip = devTips[Math.floor(Math.random() * devTips.length)];
-document.getElementById('tip-text').textContent = randomTip;
+let selectedQuote = randomQuotes[Math.floor(Math.random() * randomQuotes.length)];
+document.getElementById('quote-text').textContent = selectedQuote;
 
-// 4. Network Status Listener
-window.addEventListener('offline', () => {
-    document.getElementById('network-status').textContent = "ERR_CONNECTION_LOST";
-    document.getElementById('network-status').style.color = "#ff5555";
-    document.querySelector('.pulse-dot').style.backgroundColor = "#ff5555";
+const focusObj = document.getElementById('focus-obj');
+
+let savedMission = localStorage.getItem('myMission');
+if (savedMission) {
+    focusObj.value = savedMission;
+}
+
+focusObj.addEventListener('input', function(e) {
+    localStorage.setItem('myMission', e.target.value);
 });
 
-window.addEventListener('online', () => {
-    document.getElementById('network-status').textContent = "NETWORK.ONLINE";
-    document.getElementById('network-status').style.color = "#00f3ff";
-    document.querySelector('.pulse-dot').style.backgroundColor = "#50fa7b";
+window.addEventListener('offline', function() {
+    document.getElementById('net-status').textContent = "WIFI DEAD";
+    document.getElementById('net-status').style.color = "#ff5555";
+    document.querySelector('.dot').style.backgroundColor = "#ff5555";
+});
+
+window.addEventListener('online', function() {
+    document.getElementById('net-status').textContent = "SYS.ONLINE";
+    document.getElementById('net-status').style.color = "#0ae8f0";
+    document.querySelector('.dot').style.backgroundColor = "#4ade80";
 });
