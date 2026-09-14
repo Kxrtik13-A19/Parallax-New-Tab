@@ -3,62 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevEnv | Command Center</title>
+    <title>pulse | terminal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Subtle CRT Scanline Overlay -->
     <div class="scanlines"></div>
 
-    <div class="terminal-container">
-        <!-- Top Status Bar -->
-        <header class="sys-header">
-            <div class="sys-status">
-                <div class="pulse-dot"></div>
-                <span id="network-status">NETWORK.ONLINE</span>
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="status-box">
+                <div class="dot"></div>
+                <span id="net-status">SYS.ONLINE</span>
             </div>
-            <div id="date-display" class="sys-date">YYYY-MM-DD</div>
+            <div id="date-text">YYYY-MM-DD</div>
         </header>
 
-        <!-- Main Dashboard -->
-        <main class="dashboard">
-            <div class="clock-module">
-                <h1 id="clock" class="cyber-time">00:00:00</h1>
-                <p id="greeting" class="typewriter-text">Initializing workspace...</p>
+        <main class="content">
+            <div class="time-block">
+                <h1 id="clock">00:00:00</h1>
+                <p id="greeting">loading workspace...</p>
             </div>
 
-            <!-- Command Line Interface Search -->
-            <div class="cmd-module">
+            <!-- focus tracker feature -->
+            <div class="focus-box">
+                <span class="label">MISSION:</span>
+                <input type="text" id="focus-obj" placeholder="what's the goal today?" autocomplete="off">
+            </div>
+
+            <div class="search-box">
                 <form id="cmd-form">
-                    <span class="prompt">root@developer:~$</span>
-                    <input type="text" id="cmd-input" placeholder="Type query or use /gh (GitHub), /so (StackOverflow)..." autocomplete="off" autofocus>
+                    <span class="prompt">root@lab:~$</span>
+                    <input type="text" id="cmd-input" placeholder="search stuff or use /gh, /so..." autocomplete="off">
                 </form>
             </div>
 
-            <!-- WebDev Nodes -->
-            <div class="nodes-grid">
-                <a href="http://localhost:3000" class="node-link">
-                    <span class="node-icon">⚡</span>
-                    <span class="node-text">Localhost</span>
-                </a>
-                <a href="https://github.com" class="node-link">
-                    <span class="node-icon">🐙</span>
-                    <span class="node-text">GitHub</span>
-                </a>
-                <a href="https://stackoverflow.com" class="node-link">
-                    <span class="node-icon">🥞</span>
-                    <span class="node-text">StackOverflow</span>
-                </a>
-                <a href="https://stardance.hackclub.com" class="node-link">
-                    <span class="node-icon">🚀</span>
-                    <span class="node-text">Stardance</span>
-                </a>
+            <div class="links-grid">
+                <a href="https://discord.com/app" class="link-item">🎮 Discord</a>
+                <a href="https://github.com" class="link-item">🐙 GitHub</a>
+                <a href="https://stackoverflow.com" class="link-item">🥞 StackOverflow</a>
+                <a href="https://stardance.hackclub.com" class="link-item">🚀 Stardance</a>
             </div>
 
-            <!-- Dynamic Injector -->
-            <div class="dev-tip">
-                <span class="tip-label">SYS.LOG ></span>
-                <span id="tip-text">Loading protocol...</span>
+            <div class="quote-area">
+                <span class="quote-label">LOG ></span>
+                <span id="quote-text">fetching data...</span>
             </div>
         </main>
     </div>
