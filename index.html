@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pulse | terminal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="status-box">
+                <div class="dot"></div>
+                <span id="net-status">SYS.ONLINE</span>
+            </div>
+            <div id="date-text">YYYY-MM-DD</div>
+        </header>
+
+        <main class="content">
+            <div class="time-block">
+                <h1 id="clock">00:00:00</h1>
+                <p id="greeting">loading workspace...</p>
+            </div>
+
+            <!-- focus tracker feature -->
+            <div class="focus-box">
+                <span class="label">MISSION:</span>
+                <input type="text" id="focus-obj" placeholder="what's the goal today?" autocomplete="off">
+            </div>
+
+            <div class="search-box">
+                <form id="cmd-form">
+                    <span class="prompt">root@lab:~$</span>
+                    <input type="text" id="cmd-input" placeholder="search stuff or use /gh, /so..." autocomplete="off">
+                </form>
+            </div>
+
+            <div class="links-grid">
+                <a href="https://discord.com/app" class="link-item"> Discord</a>
+                <a href="https://github.com" class="link-item"> GitHub</a>
+                <a href="https://stackoverflow.com" class="link-item"> StackOverflow</a>
+                <a href="https://stardance.hackclub.com" class="link-item"> Stardance</a>
+            </div>
+
+            <div class="quote-area">
+                <span class="quote-label">LOG ></span>
+                <span id="quote-text">fetching data...</span>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
