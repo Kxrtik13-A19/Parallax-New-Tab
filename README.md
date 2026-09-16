@@ -12,3 +12,8 @@ i was sick of boring default browser tabs, so i coded this live workspace to loo
 
 **how to run it:**
 just clone the repo and double-click `index.html` to open it in your browser.
+
+**Updates:**
+*replaced old local host 3000 with Discord.
+*added new command /yt for youtube searches.
+*new colors and design.
