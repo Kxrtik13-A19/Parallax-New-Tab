@@ -1,10 +1,17 @@
 # pulse terminal ⚡
+**Updates:**
+* made css without any help with my custom background (my fav place: Santa Barbara, CA) and used my fav colors, no ai used purely made by me
+* restyled script.js and style.css with my ideas and this time absolute 0% AI used.
+* replaced old local host 3000 with Discord.
+* added new command /yt for youtube searches.
+* new colors and design.
 
 hey! i built this custom developer new tab page for the hack club stardance "give your website a pulse" mission. 
 
 i was sick of boring default browser tabs, so i coded this live workspace to look like a dark-mode IDE or terminal. 
 
 **Updates:**
+* made css without any help with my custom background (my fav place: Santa Barbara, CA) and used my fav colors, no ai used purely made by me
 * restyled script.js and style.css with my ideas and this time absolute 0% AI used.
 * replaced old local host 3000 with Discord.
 * added new command /yt for youtube searches.
