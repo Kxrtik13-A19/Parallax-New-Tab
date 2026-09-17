@@ -1,86 +1,56 @@
-function runClock() {
-    let dateObj = new Date();
+// clock and date stuff 
+let pad = x => ("0" + x).slice(-2);
 
-    let hrs = String(dateObj.getHours()).padStart(2, '0');
-    let mins = String(dateObj.getMinutes()).padStart(2, '0');
-    let secs = String(dateObj.getSeconds()).padStart(2, '0');
+function tick() {
+    let d = new Date();
+    document.getElementById('clock').innerText = pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
+    document.getElementById('date-text').innerText = d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
 
-    document.getElementById('clock').textContent = `${hrs}:${mins}:${secs}`;
-
-    let y = dateObj.getFullYear();
-    let m = String(dateObj.getMonth() + 1).padStart(2, '0');
-    let d = String(dateObj.getDate()).padStart(2, '0');
-    document.getElementById('date-text').textContent = `${y}-${m}-${d}`;
-
-    let greetText = document.getElementById('greeting');
-    let currentHour = dateObj.getHours();
-
-    if (currentHour < 12) {
-        greetText.textContent = "morning, time to build.";
-    } else if (currentHour < 18) {
-        greetText.textContent = "afternoon session active.";
-    } else {
-        greetText.textContent = "late night coding, grab coffee.";
-    }
+    let h = d.getHours();
+    let msg = document.getElementById('greeting');
+    if(h < 12) msg.innerText = "morning, time to build.";
+    else if(h < 18) msg.innerText = "afternoon hack club session."; 
+    else msg.innerText = "late night embedded dev, grab coffee."; 
 }
+setInterval(tick, 1000); tick();
 
-setInterval(runClock, 1000);
-runClock(); 
+// search bar commands (dont touch this it took me forever)
+document.getElementById('cmd-form').onsubmit = e => {
+    e.preventDefault(); 
+    let v = document.getElementById('cmd-input').value.trim();
+    if(!v) return; // do nothing if empty
+    
+    // cuts off the first 4 letters and searches the rest
+    if(v.startsWith('/gh ')) location = "https://github.com/search?q=" + v.slice(4);
+    else if(v.startsWith('/so ')) location = "https://stackoverflow.com/search?q=" + v.slice(4);
+    else if(v.startsWith('/yt ')) location = "https://youtube.com/results?search_query=" + v.slice(4);
+    else location = "https://google.com/search?q=" + v;
+};
 
-const searchForm = document.getElementById('cmd-form');
-const searchBox = document.getElementById('cmd-input');
-
-searchForm.addEventListener('submit', function(event) {
-    event.preventDefault(); 
-    let query = searchBox.value.trim();
-
-    if (query === "") return; 
-
-    if (query.startsWith('/gh ')) {
-        let term = query.replace('/gh ', '');
-        window.location.href = `https://github.com/search?q=${encodeURIComponent(term)}`;
-    } else if (query.startsWith('/so ')) {
-        let term = query.replace('/so ', '');
-        window.location.href = `https://stackoverflow.com/search?q=${encodeURIComponent(term)}`;
-    } else if (query.startsWith('/yt ')) {
-        let term = query.replace('/yt ', '');
-        window.location.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(term)}`;
-    } else {
-        window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-    }
-});
-
-const randomQuotes = [
+// random quotes
+let q = [
     "read the docs before asking on discord.",
-    "hardware eventually breaks. software eventually works.",
-    "console.log is cool but debugger is better.",
-    "commit your code. seriously, do it now.",
+    "hardware breaks. software works.",
+    "console.log > debugger.",
+    "commit your code bro.",
     "if it works, don't touch it."
 ];
+document.getElementById('quote-text').innerText = q[Math.floor(Math.random()*q.length)];
 
-let selectedQuote = randomQuotes[Math.floor(Math.random() * randomQuotes.length)];
-document.getElementById('quote-text').textContent = selectedQuote;
+// save mission so i dont forget it
+let box = document.getElementById('focus-obj');
+if(localStorage.getItem('mis')) box.value = localStorage.getItem('mis');
+box.oninput = () => localStorage.setItem('mis', box.value);
 
-const focusObj = document.getElementById('focus-obj');
+// wifi check 
+window.onoffline = () => {
+    document.getElementById('net-status').innerText = "WIFI DEAD";
+    document.getElementById('net-status').style.color = "red";
+    document.querySelector('.dot').style.background = "red";
+};
 
-let savedMission = localStorage.getItem('myMission');
-if (savedMission) {
-    focusObj.value = savedMission;
-}
-
-focusObj.addEventListener('input', function(e) {
-    localStorage.setItem('myMission', e.target.value);
-});
-
-window.addEventListener('offline', function() {
-    document.getElementById('net-status').textContent = "WIFI DEAD";
-    document.getElementById('net-status').style.color = "#ff5555";
-    document.querySelector('.dot').style.backgroundColor = "#ff5555";
-});
-
-window.addEventListener('online', function() {
-    document.getElementById('net-status').textContent = "SYS.ONLINE";
-    document.getElementById('net-status').style.color = "#0ae8f0";
-    document.querySelector('.dot').style.backgroundColor = "#4ade80";
-});
-
+window.ononline = () => {
+    document.getElementById('net-status').innerText = "SYS.ONLINE";
+    document.getElementById('net-status').style.color = "cyan";
+    document.querySelector('.dot').style.background = "lime";
+};
